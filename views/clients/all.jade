@@ -1,0 +1,30 @@
+extends ../layout
+block localJS
+  script(src='js/delete-id.js')
+block content
+  .modal.fade#deleteModal(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          h4.modal-title#deleteModalLabel Delete Client
+        .modal-body
+          p Are you sure you want to delete client #
+            span#deleteID username
+            | ?
+        .modal-footer
+          button.btn.btn-default(type='button' data-dismiss='modal') No
+          button.btn.btn-primary#confirmDelete(type='submit') Yes
+          
+  h1 Clients
+  table.table.table-striped.table-hover
+    thead
+      th Username
+      th
+    tbody
+      each row in data
+        tr 
+          td= row.username
+          td
+            button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' id='#{row.username}') &times;
+
