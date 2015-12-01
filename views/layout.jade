@@ -12,6 +12,7 @@ html(lang='en')
 
     link(rel='stylesheet' type='text/css' href='css/paper-bootstrap.css')
     link(rel='stylesheet' type='text/css' href='css/navbar-fixed.css')
+    link(rel='stylesheet' type='text/css' href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css")
     block localCSS
       
   body
@@ -28,13 +29,18 @@ html(lang='en')
           ul.nav.navbar-nav
             li
               a(href='/plantations') Plantations
+            li 
+              a(href='/clients') Clients
+            li 
+              a(href='/products') Products
     
     .container
       block content
                 
     .footer
       .container
-        p.text-muted.text-center &copy; 2015 Trevor and Jennifer
+        p.text-muted.text-center &copy; 2015 Team Struct by_Lightning 
+          span.fa.fa-flash
 
     //- Global JavaScript
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')

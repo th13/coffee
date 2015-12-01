@@ -10,7 +10,7 @@ $(function () {
     var id = $('#deleteID').text();
     $.ajax({
 				type: 'post',
-				url: '/plantations/' + id + '/delete',
+				url: '/products/' + id + '/delete',
 				data: null,
 				contentType: 'application/json',
 				success: function(res) {

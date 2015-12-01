@@ -1411,7 +1411,7 @@ db.serialize(function() {
   var statement = db.prepare('INSERT INTO CoffeePlantation VALUES (?, ?, ?, ?, ?)');
   var i = 0;
   _.each(cps, function(cp) {
-    statement.run(cp[0], cp[1], cp[2], cp[3], cIDs[0]);
+    statement.run(cp[0], cp[1], cp[2], cp[3], cIDs[i]);
     i++;
   });
 

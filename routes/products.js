@@ -7,7 +7,7 @@ var _ = require('lodash');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   db.serialize(function() {
-    db.all('SELECT * FROM CoffeePlantation INNER JOIN Company ON CoffeePlantation.companyID = Company.companyID', function(err, rows) {
+    db.all('SELECT * FROM CoffeeProduct', function(err, rows) {
       if (err) {
         res.err = new Error('There was a SQL error.');
         next();
@@ -22,21 +22,19 @@ router.get('/', function(req, res, next) {
     res.render('error', { error: res.err });
   }
   else {
-    res.render('plantations/all', {
-      title: 'Coffee Plantations',
+    res.render('products/all', {
+      title: 'Coffee Products',
       data: res.data });
   }
 });
 
 router.post('/new', function(req, res, next) {
   db.serialize(function() {
-    db.run('INSERT INTO CoffeePlantation VALUES (?, ?, ?, ?, ?)',
+    db.run('INSERT INTO CoffeeProduct(name, roastType, price) VALUES (?, ?, ?)',
       [
-        req.body.plantionID,
-        req.body.contactCP,
         req.body.name,
-        req.body.addressCP,
-        req.body.companyID
+        req.body.roastType,
+        req.body.price
       ],
       function(err) {
         if (err) {
@@ -56,15 +54,13 @@ router.post('/new', function(req, res, next) {
 
 router.post('/:id/update', jsonParser, function(req, res, next) {
   db.serialize(function() {
-    db.run('UPDATE CoffeePlantation ' +
-           'SET plantationID = ?, contactCP = ?, name = ?, addressCP = ?, companyID = ? ' +
-           'WHERE plantationID = ?',
+    db.run('UPDATE CoffeeProduct ' +
+           'SET name = ?, roastType = ?, price = ? ' +
+           'WHERE id = ?',
        [
-         req.body.plantationID,
-         req.body.contactCP,
          req.body.name,
-         req.body.addressCP,
-         req.body.companyID,
+         req.body.roastType,
+         req.body.price,
          req.params.id
        ],
        function(err) {
@@ -85,7 +81,7 @@ router.post('/:id/update', jsonParser, function(req, res, next) {
 
 router.post('/:id/delete', function(req, res, next) {
   db.serialize(function() {
-    db.run('DELETE FROM CoffeePlantation WHERE plantationID = ?', req.params.id, function(err) {
+    db.run('DELETE FROM CoffeeProduct WHERE id = ?', req.params.id, function(err) {
       if (err) {
         res.send({
           success: false
