@@ -11,7 +11,7 @@ $(function () {
         contentType: 'application/json',
         success: function(res) {
           if (res.success === true) {
-            console.log('successfully added! ' + $('#id').val());
+            console.log('successfully added!');
             location.reload();
           } else {
             return console.log(res.error);

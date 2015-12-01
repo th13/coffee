@@ -30,9 +30,8 @@ router.get('/', function(req, res, next) {
 
 router.post('/new', function(req, res, next) {
   db.serialize(function() {
-    db.run('INSERT INTO CoffeeProducts VALUES (?, ?, ?, ?, ?)',
+    db.run('INSERT INTO CoffeeProduct(name, roastType, price) VALUES (?, ?, ?)',
       [
-        req.body.productID,
         req.body.name,
         req.body.roastType,
         req.body.price
@@ -57,7 +56,7 @@ router.post('/:id/update', jsonParser, function(req, res, next) {
   db.serialize(function() {
     db.run('UPDATE CoffeeProduct ' +
            'SET name = ?, roastType = ?, price = ? ' +
-           'WHERE productID = ?',
+           'WHERE id = ?',
        [
          req.body.name,
          req.body.roastType,
@@ -82,7 +81,7 @@ router.post('/:id/update', jsonParser, function(req, res, next) {
 
 router.post('/:id/delete', function(req, res, next) {
   db.serialize(function() {
-    db.run('DELETE FROM CoffeeProduct WHERE productID = ?', req.params.id, function(err) {
+    db.run('DELETE FROM CoffeeProduct WHERE id = ?', req.params.id, function(err) {
       if (err) {
         res.send({
           success: false

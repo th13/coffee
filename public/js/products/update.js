@@ -14,12 +14,11 @@ $(function () {
 
   $('#confirmUpdate').click(function() {
     var id = $('#updateID').text();
-
+    console.log(id);
     $.ajax({
 				type: 'post',
-				url: '/plantations/' + id + '/update',
+				url: '/products/' + id + '/update',
 				data: JSON.stringify({
-          id: $('#updateID').text(),
           name: $('#updateName').val(),
           roastType: $('#updateRoastType').val(),
           price: $('#updatePrice').val(),
