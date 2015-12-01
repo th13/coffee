@@ -27,6 +27,12 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/add', function(req, res, next) {
+  res.render('plantations/add', {
+    title: 'Add Plantation'
+  });
+});
+
 router.post('/:id/delete', function(req, res, next) {
   db.serialize(function() {
     db.run('DELETE FROM CoffeePlantation WHERE plantationID = ?', req.params.id, function(err) {

@@ -6,7 +6,7 @@ var _ = require('lodash');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   db.serialize(function() {
-    db.all('SELECT * FROM Clients', function(err, rows) {
+    db.all('SELECT * FROM Client', function(err, rows) {
       if (err) {
         res.err = new Error('There was a SQL error.');
         next();
