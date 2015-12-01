@@ -7,7 +7,7 @@ var _ = require('lodash');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   db.serialize(function() {
-    db.all('SELECT * FROM Produces INNER JOIN CoffeePlantation c ON Produces.plantationID = c.plantationID INNER JOIN CoffeeProduct p ON Produces.id = p.id', function(err, rows) {
+    db.all('SELECT * FROM Patent INNER JOIN Company ON Patent.companyID = Company.companyID INNER JOIN CoffeeProduct ON Patent.id = CoffeeProduct.id', function(err, rows) {
       if (err) {
         res.err = new Error('There was a SQL error.');
         next();
@@ -22,18 +22,21 @@ router.get('/', function(req, res, next) {
     res.render('error', { error: res.err });
   }
   else {
-    res.render('produces/all', {
-      title: 'Coffee Products produced by Plantations',
+    res.render('patents/all', {
+      title: 'Product patented by Companies',
       data: res.data });
   }
 });
 
 router.post('/new', function(req, res, next) {
   db.serialize(function() {
-    db.run('INSERT INTO Produces(plantation, productID) VALUES (?, ?)',
+    db.run('INSERT INTO CoffeePlantation VALUES (?, ?, ?, ?, ?)',
       [
-        req.body.plantation,
-        req.body.productID,
+        req.body.plantionID,
+        req.body.contactCP,
+        req.body.name,
+        req.body.addressCP,
+        req.body.companyID
       ],
       function(err) {
         if (err) {
@@ -53,13 +56,15 @@ router.post('/new', function(req, res, next) {
 
 router.post('/:id/update', jsonParser, function(req, res, next) {
   db.serialize(function() {
-    db.run('UPDATE CoffeeProduct ' +
-           'SET name = ?, roastType = ?, price = ? ' +
-           'WHERE id = ?',
+    db.run('UPDATE CoffeePlantation ' +
+           'SET plantationID = ?, contactCP = ?, name = ?, addressCP = ?, companyID = ? ' +
+           'WHERE plantationID = ?',
        [
+         req.body.plantationID,
+         req.body.contactCP,
          req.body.name,
-         req.body.roastType,
-         req.body.price,
+         req.body.addressCP,
+         req.body.companyID,
          req.params.id
        ],
        function(err) {
@@ -80,7 +85,7 @@ router.post('/:id/update', jsonParser, function(req, res, next) {
 
 router.post('/:id/delete', function(req, res, next) {
   db.serialize(function() {
-    db.run('DELETE FROM CoffeeProduct WHERE id = ?', req.params.id, function(err) {
+    db.run('DELETE FROM CoffeePlantation WHERE plantationID = ?', req.params.id, function(err) {
       if (err) {
         res.send({
           success: false

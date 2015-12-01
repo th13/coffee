@@ -91,16 +91,16 @@ block content
       span.glyphicon.glyphicon-plus
   table.table.table-striped.table-hover
     thead
-      th Plantation Name
       th Product Name
-      th Roast Type
+      th CEO Name
+      th Contact
       th
     tbody
       each row in data
         tr 
-          td= row.c.name
-          td= row.p.name
-          td= row.roastType
+          td= row.name
+          td= ceoName
+          td= contactCO
           td
             button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' data-id='#{row.plantationID}') &times;
             a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.plantationID}' data-name='#{row.name}' data-address='#{row.addressCP}' data-phone='#{row.contactCP}' data-companyID='#{row.companyID}')
