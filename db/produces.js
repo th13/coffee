@@ -1223,3 +1223,13 @@ _.each(cps, function(plantation) {
 _.each(produces, function(p) {
 	console.log(p);
 });
+
+db.serialize(function() {
+  var statement = db.prepare('INSERT INTO Produces (plantationID, productID) VALUES (?, ?)');
+
+  _.each(produces, function(p) {
+    statement.run(p[0], p[1]);
+  });
+
+  statement.finalize();
+});

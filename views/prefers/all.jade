@@ -1,0 +1,91 @@
+extends ../layout
+block localJS
+  script(src='js/products/delete-id.js')
+  script(src='js/products/add.js')
+  script(src='js/products/update.js')
+block content
+  .modal.fade#deleteModal(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          h4.modal-title#deleteModalLabel Delete Product
+        .modal-body
+          p Are you sure you want to delete product #
+            span#deleteID PRODUCT ID
+            | ?
+        .modal-footer
+          button.btn.btn-default(type='button' data-dismiss='modal') No
+          button.btn.btn-primary#confirmDelete(type='submit') Yes
+    
+  .modal.fade#addModal(tabindex='-1' role='dialog' aria-labelledby='addModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          h4.modal-title#addModalLabel Add Product
+        .modal-body
+          form.form-horizontal
+            fieldset
+              .form-group
+                label.col-md-3.control-label(for='name') Name
+                .col-md-8
+                  input.form-control#name(placeholder='Name' type='text') 
+              .form-group
+                label.col-md-3.control-label(for='roastType') Roast Type
+                .col-md-8
+                  input.form-control#roastType(placeholder='Roast Type' type='text')
+              .form-group
+                label.col-md-3.control-label(for='price') Price
+                .col-md-8
+                  input.form-control#price(placeholder='Price' type='text')
+        .modal-footer
+          button.btn.btn-default(type='button' data-dismiss='modal') Cancel
+          button.btn.btn-primary#confirmAdd(type='submit') Submit
+          
+  .modal.fade#updateModal(tabindex='-1' role='dialog' aria-labelledby='updateModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          h4.modal-title#updateModalLabel Update Product
+        .modal-body
+          form.form-horizontal
+            fieldset
+              legend Update #
+                span#updateID UPDATE ID
+              .form-group
+                label.col-md-3.control-label(for='name') Name
+                .col-md-8
+                  input.form-control#updateName(placeholder='Name' type='text') 
+              .form-group
+                label.col-md-3.control-label(for='roastType') Roast Type
+                .col-md-8
+                  input.form-control#updateRoastType(placeholder='Roast Type' type='text')
+              .form-group
+                label.col-md-3.control-label(for='price') Price
+                .col-md-8
+                  input.form-control#updatePrice(placeholder='Price' type='text')
+        .modal-footer
+          button.btn.btn-default(type='button' data-dismiss='modal') Cancel
+          button.btn.btn-primary#confirmUpdate(type='submit') Submit
+  
+  h1 Client Coffee Preferences
+    a#addLink(data-toggle='modal' data-target='#addModal' href='#add' style="color: grey; font-size: 1.3em;")
+      span.glyphicon.glyphicon-plus
+  table.table.table-striped.table-hover
+    thead
+      th Username
+      th Product Name 
+      th Roast Type
+      th
+    tbody
+      each row in data
+        tr 
+          td= row.username
+          td= row.name
+          td= row.roastType
+          td
+            button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' data-id='#{row.id}') &times;
+            a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.id}' data-name='#{row.name}' data-roastType='#{row.roastType}' data-price='#{row.price}')
+              span.fa.fa-pencil(style='color: #000')
