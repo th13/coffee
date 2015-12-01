@@ -86,22 +86,15 @@ block content
           button.btn.btn-default(type='button' data-dismiss='modal') Cancel
           button.btn.btn-primary#confirmUpdate(type='submit') Submit
   
-  h1 Coffee Plantations
-    a#addLink(data-toggle='modal' data-target='#addModal' href='#add' style="color: grey; font-size: 1.3em;")
-      span.glyphicon.glyphicon-plus
+  h1 Coffee Produced By
   table.table.table-striped.table-hover
     thead
       th Plantation Name
       th Product Name
       th Roast Type
-      th
     tbody
       each row in data
         tr 
           td= row.nameCP
           td= row.name
           td= row.roastType
-          td
-            button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' data-id='#{row.plantationID}') &times;
-            a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.plantationID}' data-name='#{row.name}' data-address='#{row.addressCP}' data-phone='#{row.contactCP}' data-companyID='#{row.companyID}')
-              span.fa.fa-pencil(style='color: #000')
