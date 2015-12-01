@@ -1,0 +1,35 @@
+extends ../layout
+block localJS
+  script(src='js/delete-id.js')
+block content
+  .modal.fade#deleteModal(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          h4.modal-title#deleteModalLabel Delete Plantation
+        .modal-body
+          p Are you sure you want to delete plantation #
+            span#deleteID PLANTATION ID
+            | ?
+        .modal-footer
+          button.btn.btn-default(type='button' data-dismiss='modal') No
+          button.btn.btn-primary#confirmDelete(type='submit') Yes
+          
+  h1 Coffee Plantations
+  table.table.table-striped.table-hover
+    thead
+      th Plantation ID
+      th Name 
+      th Address
+      th Phone
+      th
+    tbody
+      each row in data
+        tr 
+          td= row.plantationID
+          td= row.name
+          td= row.addressCP
+          td= row.contactCP
+          td
+            button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' id='#{row.plantationID}') &times;

@@ -1,0 +1,816 @@
+var db = require('../db').get();
+var _ = require('lodash');
+
+var clients = [[
+  "magnis.dis@Curabiturut.co.uk",
+  "NOQ44SJP6DO"
+],
+[
+  "nibh.Quisque.nonummy@etipsumcursus.net",
+  "CLK96TQR0UY"
+],
+[
+  "Integer@risusMorbimetus.ca",
+  "FMG15NQC2SQ"
+],
+[
+  "quis.diam.Pellentesque@enimEtiamgravida.co.uk",
+  "URX45XTG8DG"
+],
+[
+  "in.consectetuer.ipsum@elementum.com",
+  "LSN39SHZ2HE"
+],
+[
+  "laoreet.ipsum.Curabitur@Curabitur.org",
+  "MSJ78YMR0NC"
+],
+[
+  "a.scelerisque@loremvitae.edu",
+  "VML18PJK2KX"
+],
+[
+  "diam@variusorciin.ca",
+  "SKA48WDQ8FH"
+],
+[
+  "non.quam@lacinia.org",
+  "JUA76WYV4QR"
+],
+[
+  "sed@odiosagittis.edu",
+  "VXL80TMB3FM"
+],
+[
+  "ipsum@vulputate.net",
+  "LXB82TEA9YZ"
+],
+[
+  "mattis.Cras.eget@risusNuncac.ca",
+  "NDC01XRM6PC"
+],
+[
+  "accumsan.interdum.libero@euenim.co.uk",
+  "VRQ67HLL2XX"
+],
+[
+  "ipsum.sodales.purus@interdumenim.edu",
+  "BCA66RFN9WA"
+],
+[
+  "est.Nunc.ullamcorper@Utsemper.org",
+  "YFN71DZW5HL"
+],
+[
+  "Aliquam@tempus.edu",
+  "YWT30BDR9QZ"
+],
+[
+  "condimentum.eget@etmagnis.co.uk",
+  "YXC60YCR1UG"
+],
+[
+  "dolor.Donec@sedleoCras.com",
+  "XQX25OGD8GN"
+],
+[
+  "mauris.elit.dictum@dapibus.org",
+  "FGF85LBD4ME"
+],
+[
+  "est.tempor.bibendum@mauris.co.uk",
+  "NYR19FJH2SP"
+],
+[
+  "facilisis@ornaretortor.edu",
+  "JRY34BZY3YC"
+],
+[
+  "sem.molestie@sodalesnisimagna.ca",
+  "ETK81JPH6II"
+],
+[
+  "Nullam.feugiat.placerat@orciinconsequat.org",
+  "HOZ36WJM2UZ"
+],
+[
+  "neque.vitae@dapibusid.ca",
+  "TRE30KDY2AR"
+],
+[
+  "viverra.Maecenas.iaculis@convallis.com",
+  "FHK58NFT9IE"
+],
+[
+  "eget.odio@tempusmauriserat.net",
+  "JEO84AJG0YB"
+],
+[
+  "quam.a.felis@Nullaeuneque.com",
+  "BTN14VSR0HU"
+],
+[
+  "sodales@rutrum.org",
+  "PJO60TFR4ST"
+],
+[
+  "enim.non@consequatauctornunc.net",
+  "TMA87MBV6KP"
+],
+[
+  "fames.ac@rhoncusid.ca",
+  "XSQ87EFZ6NK"
+],
+[
+  "libero.est@Duiselementum.co.uk",
+  "ZMG75DDM4RT"
+],
+[
+  "non@In.org",
+  "FKE94XVI9OA"
+],
+[
+  "eu.ligula.Aenean@semperNamtempor.org",
+  "FPQ31CTX6TJ"
+],
+[
+  "volutpat.nunc@convallis.edu",
+  "PLI37YEK1JM"
+],
+[
+  "enim@pellentesqueSeddictum.com",
+  "VPS02EMW8IN"
+],
+[
+  "Duis.mi.enim@pharetra.org",
+  "GPQ48IOC7MV"
+],
+[
+  "nec.mauris.blandit@elitNulla.com",
+  "IKU08GXX4HS"
+],
+[
+  "a.enim.Suspendisse@tellusPhaselluselit.net",
+  "VBY36LCR1FF"
+],
+[
+  "amet.consectetuer.adipiscing@porttitor.org",
+  "HFO42WVO5HF"
+],
+[
+  "felis.orci@ametrisus.com",
+  "VUC04DDK1SI"
+],
+[
+  "lacinia@at.co.uk",
+  "UUU17CXX4YO"
+],
+[
+  "Quisque@Integeraliquamadipiscing.edu",
+  "EOJ57RHJ3JY"
+],
+[
+  "aliquam@Etiambibendumfermentum.edu",
+  "EEX65BBU4HM"
+],
+[
+  "Vivamus.nisi@facilisiseget.com",
+  "PFC24UJS5XV"
+],
+[
+  "aliquam@vitaemaurissit.org",
+  "JUQ35FQV9NP"
+],
+[
+  "sit.amet.consectetuer@Nuncpulvinar.com",
+  "JQF24LNH2CJ"
+],
+[
+  "id.magna@Sedeunibh.com",
+  "MXF29FKQ8PM"
+],
+[
+  "in.faucibus@ascelerisquesed.org",
+  "BNR82SKF6SQ"
+],
+[
+  "fringilla.cursus@rutrum.ca",
+  "PKP31QMP9DP"
+],
+[
+  "dui@pharetraQuisqueac.net",
+  "GPP89TWT5FQ"
+],
+[
+  "Donec@euaugue.co.uk",
+  "FIM82YLE6UM"
+],
+[
+  "dui.semper.et@cursusNunc.com",
+  "SVV05XMT9TR"
+],
+[
+  "egestas.Aliquam.nec@Duis.edu",
+  "NDQ64XKU1PK"
+],
+[
+  "Morbi@Utsemperpretium.edu",
+  "NJR60ROF0EI"
+],
+[
+  "fermentum@DonecnibhQuisque.edu",
+  "RPJ56LNZ4KH"
+],
+[
+  "enim@apurus.co.uk",
+  "AJV21KEI4ZF"
+],
+[
+  "velit@sedturpis.co.uk",
+  "TNZ12LDH3XT"
+],
+[
+  "fringilla.Donec.feugiat@lobortisrisus.edu",
+  "TWQ43EWB7LT"
+],
+[
+  "est@tinciduntDonecvitae.net",
+  "STD94DTO7EB"
+],
+[
+  "Mauris.quis.turpis@sapien.edu",
+  "NMN85EBG1AU"
+],
+[
+  "consequat.dolor.vitae@egetipsumSuspendisse.edu",
+  "PWA32HIY1KR"
+],
+[
+  "arcu.et@Aeneaneget.co.uk",
+  "TYV28DLC2DO"
+],
+[
+  "aptent.taciti.sociosqu@tincidunt.edu",
+  "VZW13NZT2CU"
+],
+[
+  "massa.rutrum.magna@aliquetmetus.com",
+  "NPG39JLO8CB"
+],
+[
+  "Nam.nulla.magna@pedenonummyut.edu",
+  "EMF08FHZ1GT"
+],
+[
+  "Mauris.eu.turpis@euelit.edu",
+  "UHK31LOI7GN"
+],
+[
+  "neque.Nullam.ut@etnetus.co.uk",
+  "XPI30WPA6HH"
+],
+[
+  "consequat@nisi.net",
+  "GOC44CRL3GX"
+],
+[
+  "Phasellus.in@acliberonec.org",
+  "YTH92JJH4MS"
+],
+[
+  "Praesent@vitaeerat.edu",
+  "TTE49UMF6DS"
+],
+[
+  "Quisque@Sedauctorodio.co.uk",
+  "VAJ27NQG9QN"
+],
+[
+  "pharetra.Nam.ac@turpisnec.org",
+  "XAI64BZA7WN"
+],
+[
+  "laoreet@Nuncmaurissapien.ca",
+  "RNB10HWX7BI"
+],
+[
+  "scelerisque.sed.sapien@ipsum.org",
+  "YRR88PJO9RX"
+],
+[
+  "massa.non@vestibulumneque.edu",
+  "DFX76VMF7VV"
+],
+[
+  "amet.consectetuer@seddolor.co.uk",
+  "YSV02DOI3ZN"
+],
+[
+  "Donec.egestas.Aliquam@vulputateveliteu.com",
+  "AXH80NHI9LW"
+],
+[
+  "mauris.elit.dictum@sitametultricies.com",
+  "ASI94OKJ9DO"
+],
+[
+  "lacus.Mauris.non@milacinia.net",
+  "YAI07VBW9TG"
+],
+[
+  "torquent.per@porttitoreros.org",
+  "DDX98BGX9OX"
+],
+[
+  "Nunc.quis.arcu@necurnasuscipit.co.uk",
+  "MTY25IDH2GS"
+],
+[
+  "pede.ac.urna@leoVivamusnibh.com",
+  "GTN83FSB0MY"
+],
+[
+  "massa.Integer.vitae@eteuismodet.ca",
+  "CPZ01OYT0OV"
+],
+[
+  "quis@semperrutrumFusce.net",
+  "HZI58BPB5MV"
+],
+[
+  "non@viverraMaecenasiaculis.edu",
+  "HFC10MSW2XF"
+],
+[
+  "Mauris@lobortisrisusIn.edu",
+  "XKW28HJA8FH"
+],
+[
+  "mauris@tellusPhasellus.co.uk",
+  "BHD39VDB4CY"
+],
+[
+  "auctor.odio@Nunc.com",
+  "GOF55INN8RO"
+],
+[
+  "iaculis@elit.org",
+  "URV59DJM0IY"
+],
+[
+  "Quisque@ornare.org",
+  "FGG47BLP0MY"
+],
+[
+  "tincidunt@lectusante.co.uk",
+  "BNA89LHT6WX"
+],
+[
+  "Sed@enimMauris.co.uk",
+  "QGM69YYV0KE"
+],
+[
+  "pretium.aliquet.metus@vel.ca",
+  "IJW14EYH9GO"
+],
+[
+  "nunc@nislarcuiaculis.com",
+  "ARQ17GJM2OG"
+],
+[
+  "feugiat.Lorem@facilisis.edu",
+  "YWV60YPW2QS"
+],
+[
+  "egestas@CuraePhasellus.ca",
+  "PEO04XKS4NL"
+],
+[
+  "Morbi.sit.amet@amalesuadaid.net",
+  "ZCN80ZAU5LL"
+],
+[
+  "sem.eget@sedpedeCum.co.uk",
+  "EVY59ZKH7TR"
+],
+[
+  "pharetra.nibh@ligulaAenean.net",
+  "OVK47HMH7OY"
+],
+[
+  "Curae.Donec.tincidunt@imperdiet.org",
+  "ASC20QME4CP"
+],
+[
+  "magna@posuereenim.edu",
+  "FTV40JIL8WS"
+],
+[
+  "dapibus@sociis.edu",
+  "UGE57HIP0ZA"
+],
+[
+  "at.iaculis.quis@disparturientmontes.org",
+  "ZNQ14WBY3PI"
+],
+[
+  "sit.amet@rutrummagnaCras.net",
+  "KEN27QWO3ZT"
+],
+[
+  "a@hendreritconsectetuer.edu",
+  "RYC37WFO1WC"
+],
+[
+  "eros.nec@accumsanlaoreetipsum.org",
+  "JVA83RZF1AT"
+],
+[
+  "magna@euerat.org",
+  "TOJ59VAW1BG"
+],
+[
+  "elit@imperdiet.ca",
+  "CBY80YLK8YH"
+],
+[
+  "in.aliquet@nonleo.edu",
+  "XCI24JTV3OM"
+],
+[
+  "orci.quis.lectus@liberodui.com",
+  "TJT35MVW1IB"
+],
+[
+  "non.vestibulum.nec@magnaNam.co.uk",
+  "WQP73JMJ3QW"
+],
+[
+  "diam.at.pretium@lacusNullatincidunt.com",
+  "TGJ36BXH1YO"
+],
+[
+  "libero.nec@dignissim.net",
+  "CCI48LSH4MK"
+],
+[
+  "Proin@Nulla.org",
+  "AVT75JLV4SJ"
+],
+[
+  "litora.torquent@Pellentesque.ca",
+  "CDF24JTH3XZ"
+],
+[
+  "convallis.est@etmagnisdis.com",
+  "ZQN42MRT5WI"
+],
+[
+  "ipsum@estNunclaoreet.co.uk",
+  "GFD44HYZ1PK"
+],
+[
+  "nunc@semper.org",
+  "WJO69EYQ4ST"
+],
+[
+  "ullamcorper@vitae.co.uk",
+  "LXY10IJI5AG"
+],
+[
+  "nulla.vulputate.dui@tristique.co.uk",
+  "TSX71JBV5JN"
+],
+[
+  "tincidunt.adipiscing.Mauris@ac.net",
+  "ZQX96GPW8KN"
+],
+[
+  "justo.Praesent.luctus@orciconsectetuer.com",
+  "IDE47GAP1DT"
+],
+[
+  "scelerisque.sed@etipsum.com",
+  "TLR07QON8MQ"
+],
+[
+  "libero.et@libero.org",
+  "TFV41SEC2SB"
+],
+[
+  "id@purus.edu",
+  "NTO78AQP1TW"
+],
+[
+  "velit@egetdictumplacerat.co.uk",
+  "YAL84AZY3TW"
+],
+[
+  "ipsum.sodales.purus@posuere.co.uk",
+  "AYX03ZNA0DI"
+],
+[
+  "elit.dictum@amalesuadaid.co.uk",
+  "DQV72GVV5EQ"
+],
+[
+  "Suspendisse@nulla.com",
+  "OMO48ITQ3EV"
+],
+[
+  "commodo.ipsum.Suspendisse@enim.org",
+  "UGH57ZJY2UH"
+],
+[
+  "blandit.at@non.edu",
+  "ZVP66MNH5VI"
+],
+[
+  "volutpat.Nulla.facilisis@nonarcuVivamus.ca",
+  "LZB91HVM2NK"
+],
+[
+  "ut@veliteu.ca",
+  "GFI68EHX6FD"
+],
+[
+  "tincidunt@neque.ca",
+  "BZA56YMX0OO"
+],
+[
+  "lorem.luctus@Suspendissealiquet.edu",
+  "LKL00GLF5PL"
+],
+[
+  "mattis.Integer@suscipitnonummy.edu",
+  "JEJ64VEK0CI"
+],
+[
+  "Vivamus@CrasinterdumNunc.com",
+  "XGL65FJY3FC"
+],
+[
+  "nec@acmieleifend.com",
+  "UBQ52ONM2NT"
+],
+[
+  "parturient.montes.nascetur@odioauctorvitae.com",
+  "ONH26LOZ8QE"
+],
+[
+  "fermentum.vel@tristiquepharetra.ca",
+  "DXW56AZL3NN"
+],
+[
+  "egestas.a@atrisus.edu",
+  "WLA64CET4BZ"
+],
+[
+  "orci.Phasellus@enimCurabitur.org",
+  "LKO24XYL6SE"
+],
+[
+  "dolor@ullamcorper.net",
+  "PWN54NEG8II"
+],
+[
+  "non@utdolor.ca",
+  "TWO54DGJ8OU"
+],
+[
+  "sapien.molestie@ametmetusAliquam.co.uk",
+  "CJN42QJI2XG"
+],
+[
+  "dolor.tempus@mattissemperdui.ca",
+  "RZL05YBZ6IW"
+],
+[
+  "orci@Loremipsum.org",
+  "IRU96XJI2TJ"
+],
+[
+  "ornare.lectus@Aliquamauctorvelit.net",
+  "MEF94OND5CM"
+],
+[
+  "iaculis.nec.eleifend@nec.net",
+  "JZZ66MTK6HZ"
+],
+[
+  "at.pretium.aliquet@nonfeugiatnec.com",
+  "AOX56NBE0RE"
+],
+[
+  "lectus.a@orci.ca",
+  "LFZ96ASC8HI"
+],
+[
+  "ac@Nullamsuscipit.edu",
+  "PBQ19YAL9AX"
+],
+[
+  "risus@Quisqueporttitoreros.co.uk",
+  "BUW81QRE5XC"
+],
+[
+  "ligula@nullavulputatedui.net",
+  "SGW44ZDG7ZZ"
+],
+[
+  "Cras.dictum.ultricies@viverraDonectempus.edu",
+  "RNC71FGE0YW"
+],
+[
+  "ac.nulla.In@Fusce.com",
+  "IGX60KJM8LO"
+],
+[
+  "viverra.Donec@dolorDonec.edu",
+  "IJT85UXJ5UV"
+],
+[
+  "ligula.Nullam@risusodio.net",
+  "JMA51YBC7JQ"
+],
+[
+  "sociis.natoque.penatibus@Morbi.co.uk",
+  "VEH16FWX1GA"
+],
+[
+  "et.lacinia.vitae@insodales.co.uk",
+  "HWD32KJR9AJ"
+],
+[
+  "lectus.ante.dictum@Donectempor.co.uk",
+  "KQA81JVM4GW"
+],
+[
+  "augue.ac@vel.org",
+  "YVY06ZZR2OH"
+],
+[
+  "nisl@aliquet.edu",
+  "JUL72WHF6PO"
+],
+[
+  "sem@nislQuisque.org",
+  "BRY07XAD4LY"
+],
+[
+  "sagittis.placerat@tellus.ca",
+  "ZAJ79KGQ7DF"
+],
+[
+  "enim.consequat.purus@ornareFuscemollis.org",
+  "NFL58BOF8LN"
+],
+[
+  "aliquet.odio.Etiam@orci.edu",
+  "BIF88SZS8CR"
+],
+[
+  "arcu.ac.orci@necleoMorbi.edu",
+  "FLL31QBG6HM"
+],
+[
+  "sem.ut@elitNulla.edu",
+  "GIX55DYN7MM"
+],
+[
+  "pellentesque@dictum.com",
+  "WAK06ZYQ2DH"
+],
+[
+  "Cras.dolor@euismod.com",
+  "WVG40ZDX5ZK"
+],
+[
+  "mauris.aliquam.eu@amet.co.uk",
+  "OKW25VJT6JK"
+],
+[
+  "mauris@mieleifend.edu",
+  "DXW71GGZ4TC"
+],
+[
+  "commodo.ipsum.Suspendisse@tinciduntcongue.ca",
+  "XPU92EMZ6BJ"
+],
+[
+  "a@purusNullamscelerisque.ca",
+  "EGJ75VQN1FG"
+],
+[
+  "In.scelerisque@ullamcorpernisl.net",
+  "VHW61XKO2FA"
+],
+[
+  "enim@sit.ca",
+  "FKI42ARW8FL"
+],
+[
+  "id.ante.dictum@et.com",
+  "UBS19IGE6YE"
+],
+[
+  "varius@ataugueid.com",
+  "YOT96AZM7PK"
+],
+[
+  "aptent.taciti.sociosqu@NullamnislMaecenas.co.uk",
+  "CTL40GET4DY"
+],
+[
+  "et@pellentesque.org",
+  "SQU59PIS6JM"
+],
+[
+  "Nunc.ullamcorper@acmattis.com",
+  "EII35ITW1IP"
+],
+[
+  "aliquet.odio@dictumsapienAenean.ca",
+  "GKG70QWD1YD"
+],
+[
+  "Phasellus.dolor.elit@auctor.co.uk",
+  "KOH53FKF8WG"
+],
+[
+  "adipiscing@rutrum.org",
+  "CKW85IVJ2JA"
+],
+[
+  "libero.Integer@Donecatarcu.com",
+  "TWM35NAC3MR"
+],
+[
+  "lorem@velfaucibusid.net",
+  "HHC55JZH6EU"
+],
+[
+  "ornare@urnaVivamus.com",
+  "ZYM86IZR5DB"
+],
+[
+  "et.rutrum.non@fringillaestMauris.org",
+  "AIH13RMD3DF"
+],
+[
+  "vestibulum.massa.rutrum@Cumsociis.co.uk",
+  "LKN69VUP1TG"
+],
+[
+  "quis.pede.Praesent@odioEtiamligula.com",
+  "PEX20GCE2YV"
+],
+[
+  "eget.volutpat@dis.com",
+  "LJK35ZOF2NC"
+],
+[
+  "faucibus.leo@portaelita.net",
+  "XZV39HOI2XD"
+],
+[
+  "lorem@Donec.ca",
+  "YZJ81UUI3TD"
+],
+[
+  "Cras.interdum@tortoratrisus.org",
+  "WDY45QXZ4IL"
+],
+[
+  "lacinia.at.iaculis@milaciniamattis.co.uk",
+  "CKX74BEG7GA"
+],
+[
+  "eu.eros@pede.net",
+  "WRC89LYJ4VR"
+],
+[
+  "blandit.enim.consequat@nullavulputate.ca",
+  "BDM13EAN1OT"
+],
+[
+  "sodales.at@enim.co.uk",
+  "ESF67KEV3BL"
+],
+[
+  "cursus.purus.Nullam@Morbisit.ca",
+  "TGD34AJJ4AO"
+]
+];
+
+db.serialize(function() {
+  var statement = db.prepare('INSERT INTO Client VALUES (?, ?)');
+
+  _.each(clients, function(client) {
+    statement.run(client[0], client[1]);
+  });
+
+  statement.finalize();
+});
+
+db.close();
