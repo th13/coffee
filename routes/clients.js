@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/:id/delete', function(req, res, next) {
   db.serialize(function() {
-    db.run('DELETE FROM Clients WHERE username = ?', req.params.id, function(err) {
+    db.run('DELETE FROM Client WHERE username = ?', req.params.id, function(err) {
       if (err) {
         res.send({
           success: false
