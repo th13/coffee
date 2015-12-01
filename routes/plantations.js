@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var jsonParser = require('body-parser').json();
 var db = require('../db').get();
 var _ = require('lodash');
 
@@ -25,6 +26,60 @@ router.get('/', function(req, res, next) {
       title: 'Coffee Plantations',
       data: res.data });
   }
+});
+
+router.post('/new', function(req, res, next) {
+  db.serialize(function() {
+    db.run('INSERT INTO CoffeePlantation VALUES (?, ?, ?, ?, ?)',
+      [
+        req.body.plantionID,
+        req.body.contactCP,
+        req.body.name,
+        req.body.addressCP,
+        req.body.companyID
+      ],
+      function(err) {
+        if (err) {
+          var error = new Error('There was an SQL error inserting into the db.');
+          res.send({
+            error: error
+          });
+        }
+        else {
+          res.send({
+            success: true
+          });
+        }
+    });
+  });
+});
+
+router.post('/:id/update', jsonParser, function(req, res, next) {
+  db.serialize(function() {
+    db.run('UPDATE CoffeePlantation ' +
+           'SET plantationID = ?, contactCP = ?, name = ?, addressCP = ?, companyID = ? ' +
+           'WHERE plantationID = ?',
+       [
+         req.body.plantationID,
+         req.body.contactCP,
+         req.body.name,
+         req.body.addressCP,
+         req.body.companyID,
+         req.params.id
+       ],
+       function(err) {
+          if (err) {
+            res.send({
+              error: err
+            });
+          }
+          else {
+            res.send({
+              success: true
+            });
+          }
+       });
+  });
 });
 
 router.post('/:id/delete', function(req, res, next) {

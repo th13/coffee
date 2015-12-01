@@ -1,6 +1,8 @@
 extends ../layout
 block localJS
   script(src='js/delete-id.js')
+  script(src='js/add.js')
+  script(src='js/update.js')
 block content
   .modal.fade#deleteModal(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel')
     .modal-dialog(role='document')
@@ -15,8 +17,78 @@ block content
         .modal-footer
           button.btn.btn-default(type='button' data-dismiss='modal') No
           button.btn.btn-primary#confirmDelete(type='submit') Yes
+    
+  .modal.fade#addModal(tabindex='-1' role='dialog' aria-labelledby='addModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          h4.modal-title#addModalLabel Add Plantation
+        .modal-body
+          form.form-horizontal
+            fieldset
+              .form-group
+                label.col-md-3.control-label(for='plantationID') Plantation ID
+                .col-md-8
+                  input.form-control#plantationID(placeholder='Plantation ID' type='text')
+              .form-group
+                label.col-md-3.control-label(for='contactCP') Phone Number
+                .col-md-8
+                  input.form-control#contactCP(placeholder='Phone Number' type='text')
+              .form-group
+                label.col-md-3.control-label(for='name') Name
+                .col-md-8
+                  input.form-control#name(placeholder='Name' type='text') 
+              .form-group
+                label.col-md-3.control-label(for='addressCP') Address
+                .col-md-8
+                  input.form-control#addressCP(placeholder='Address' type='text')
+              .form-group
+                label.col-md-3.control-label(for='companyID') Company ID
+                .col-md-8
+                  input.form-control#companyID(placeholder='Company ID' type='text')
+        .modal-footer
+          button.btn.btn-default(type='button' data-dismiss='modal') Cancel
+          button.btn.btn-primary#confirmAdd(type='submit') Submit
           
+  .modal.fade#updateModal(tabindex='-1' role='dialog' aria-labelledby='updateModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          h4.modal-title#updateModalLabel Update Plantation
+        .modal-body
+          form.form-horizontal
+            fieldset
+              legend Update #
+                span#updateID UPDATE ID
+              .form-group
+                label.col-md-3.control-label(for='plantationID') Plantation ID
+                .col-md-8
+                  input.form-control#updatePlantationID(placeholder='Plantation ID' type='text')
+              .form-group
+                label.col-md-3.control-label(for='contactCP') Phone Number
+                .col-md-8
+                  input.form-control#updateContactCP(placeholder='Phone Number' type='text')
+              .form-group
+                label.col-md-3.control-label(for='name') Name
+                .col-md-8
+                  input.form-control#updateName(placeholder='Name' type='text') 
+              .form-group
+                label.col-md-3.control-label(for='addressCP') Address
+                .col-md-8
+                  input.form-control#updateAddressCP(placeholder='Address' type='text')
+              .form-group
+                label.col-md-3.control-label(for='companyID') Company ID
+                .col-md-8
+                  input.form-control#updateCompanyID(placeholder='Company ID' type='text')
+        .modal-footer
+          button.btn.btn-default(type='button' data-dismiss='modal') Cancel
+          button.btn.btn-primary#confirmUpdate(type='submit') Submit
+  
   h1 Coffee Plantations
+    a#addLink(data-toggle='modal' data-target='#addModal' href='#add' style="color: grey; font-size: 1.3em;")
+      span.glyphicon.glyphicon-plus
   table.table.table-striped.table-hover
     thead
       th Plantation ID
@@ -32,4 +104,6 @@ block content
           td= row.addressCP
           td= row.contactCP
           td
-            button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' id='#{row.plantationID}') &times;
+            button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' data-id='#{row.plantationID}') &times;
+            a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.plantationID}' data-name='#{row.name}' data-address='#{row.addressCP}' data-phone='#{row.contactCP}' data-companyID='#{row.companyID}')
+              span.fa.fa-pencil(style='color: #000')

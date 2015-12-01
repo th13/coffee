@@ -1,7 +1,7 @@
 $(function () {
 	$('.delete').click(function() {
-    console.log($(this).attr('id'));
-    var id = $(this).attr('id');
+    console.log($(this).attr('data-id'));
+    var id = $(this).attr('data-id');
 
     $('#deleteID').text(id);
   });
