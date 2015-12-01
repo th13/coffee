@@ -11,6 +11,7 @@ var plantations = require('./routes/plantations.js');
 var clients = require('./routes/clients.js');
 var products = require('./routes/products.js');
 var prefers = require('./routes/prefers.js');
+var produces = require('./routes/produces.js');
 
 var db = require('./db');
 
@@ -40,6 +41,8 @@ app.use('/plantations', plantations);
 app.use('/clients', clients);
 app.use('/products', products);
 app.use('/prefers', prefers);
+app.use('/produces', produces);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

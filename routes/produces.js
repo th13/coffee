@@ -7,14 +7,13 @@ var _ = require('lodash');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   db.serialize(function() {
-    db.all('SELECT * FROM CoffeePlantation INNER JOIN Company ON CoffeePlantation.companyID = Company.companyID', function(err, rows) {
+    db.all('SELECT * FROM Produces INNER JOIN CoffeePlantation c ON Produces.plantationID = c.plantationID INNER JOIN CoffeeProduct p ON Produces.id = p.id', function(err, rows) {
       if (err) {
         res.err = new Error('There was a SQL error.');
-      }
-      else {
-        res.data = rows;
+        next();
       }
 
+      res.data = rows;
       next();
     });
   });
@@ -23,21 +22,18 @@ router.get('/', function(req, res, next) {
     res.render('error', { error: res.err });
   }
   else {
-    res.render('plantations/all', {
-      title: 'Coffee Plantations',
+    res.render('produces/all', {
+      title: 'Coffee Products Produced by Plantations',
       data: res.data });
   }
 });
 
 router.post('/new', function(req, res, next) {
   db.serialize(function() {
-    db.run('INSERT INTO CoffeePlantation VALUES (?, ?, ?, ?, ?)',
+    db.run('INSERT INTO Produces(plantation, productID) VALUES (?, ?)',
       [
-        req.body.plantionID,
-        req.body.contactCP,
-        req.body.name,
-        req.body.addressCP,
-        req.body.companyID
+        req.body.plantation,
+        req.body.productID,
       ],
       function(err) {
         if (err) {
@@ -55,40 +51,15 @@ router.post('/new', function(req, res, next) {
   });
 });
 
-router.get('/:id', function(req, res, next) {
-  db.serialize(function() {
-    db.get('SELECT * FROM CoffeePlantation INNER JOIN Company ON CoffeePlantation.companyID = Company.companyID', function(err, row) {
-      if (err) {
-        res.err = err;
-      }
-      else {
-        res.data = row;
-      }
-      next();
-    });
-  });
-}, function(req, res, next) {
-  if (res.err) {
-    res.render('error', { error: res.err });
-  }
-  else {
-    res.render('plantations/view', {
-      title: res.data.name,
-      data: res.data });
-  }
-});
-
 router.post('/:id/update', jsonParser, function(req, res, next) {
   db.serialize(function() {
-    db.run('UPDATE CoffeePlantation ' +
-           'SET plantationID = ?, contactCP = ?, name = ?, addressCP = ?, companyID = ? ' +
-           'WHERE plantationID = ?',
+    db.run('UPDATE CoffeeProduct ' +
+           'SET name = ?, roastType = ?, price = ? ' +
+           'WHERE id = ?',
        [
-         req.body.plantationID,
-         req.body.contactCP,
          req.body.name,
-         req.body.addressCP,
-         req.body.companyID,
+         req.body.roastType,
+         req.body.price,
          req.params.id
        ],
        function(err) {
@@ -109,7 +80,7 @@ router.post('/:id/update', jsonParser, function(req, res, next) {
 
 router.post('/:id/delete', function(req, res, next) {
   db.serialize(function() {
-    db.run('DELETE FROM CoffeePlantation WHERE plantationID = ?', req.params.id, function(err) {
+    db.run('DELETE FROM CoffeeProduct WHERE id = ?', req.params.id, function(err) {
       if (err) {
         res.send({
           success: false

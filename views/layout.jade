@@ -10,8 +10,8 @@ html(lang='en')
     
     title #{title}
 
-    link(rel='stylesheet' type='text/css' href='css/paper-bootstrap.css')
-    link(rel='stylesheet' type='text/css' href='css/navbar-fixed.css')
+    link(rel='stylesheet' type='text/css' href='/css/paper-bootstrap.css')
+    link(rel='stylesheet' type='text/css' href='/css/navbar-fixed.css')
     link(rel='stylesheet' type='text/css' href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css")
     block localCSS
       
@@ -33,6 +33,10 @@ html(lang='en')
               a(href='/clients') Clients
             li 
               a(href='/products') Products
+            li
+              a(href='/prefers') Preferences
+            li 
+              a(href='/produces') Produces
     
     .container
       block content

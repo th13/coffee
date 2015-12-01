@@ -1,15 +1,15 @@
 extends ../layout
 block localJS
-  script(src='/js/delete-id.js')
-  script(src='/js/add.js')
-  script(src='/js/update.js')
+  script(src='js/delete-id.js')
+  script(src='js/add.js')
+  script(src='js/update.js')
 block content
   .modal.fade#deleteModal(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel')
     .modal-dialog(role='document')
       .modal-content
         .modal-header
           button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
-          h4.modal-title#deleteModalLabel Delete Plantation
+          h4.modal-title#deleteModalLabel Delete Produces
         .modal-body
           p Are you sure you want to delete plantation #
             span#deleteID PLANTATION ID
@@ -91,20 +91,16 @@ block content
       span.glyphicon.glyphicon-plus
   table.table.table-striped.table-hover
     thead
-      th Plantation ID
-      th Name 
-      th Address
-      th Phone
-      th Company CEO
+      th Plantation Name
+      th Product Name
+      th Roast Type
       th
     tbody
       each row in data
         tr 
-          td= row.plantationID
+          td= row.nameCP
           td= row.name
-          td= row.addressCP
-          td= row.contactCP
-          td= row.ceoName
+          td= row.roastType
           td
             button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' data-id='#{row.plantationID}') &times;
             a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.plantationID}' data-name='#{row.name}' data-address='#{row.addressCP}' data-phone='#{row.contactCP}' data-companyID='#{row.companyID}')
