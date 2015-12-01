@@ -24,7 +24,7 @@ $(function () {
 				data: JSON.stringify({
           plantationID: parseInt($('#updatePlantationID').val()),
           contactCP: $('#updateContactCP').val(),
-          name: $('#updateName').val(),
+          nameCP: $('#updateName').val(),
           addressCP: $('#updateAddressCP').val(),
           companyID: parseInt($('#updateCompanyID').val())
         }),

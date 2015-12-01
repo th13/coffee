@@ -1,0 +1,45 @@
+extends ../layout
+block content
+  .page-header
+    h3
+      a(href='/clients')
+        span.fa.fa-chevron-left(style='color: grey;')
+      | &nbsp;&nbsp;
+      = data[0].username
+  .panel.panel-default
+    .panel-body
+      .row
+        p.col-md-12
+          strong Prefers: 
+          br
+          each row in data
+            a(href='/products/#{row.productID}')= row.name
+            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      .row
+        p.col-md-12
+          strong Based on the client's preferred coffee products, we recommend the following additional products based on the following criteria:
+          p.col-md-12 Average Price of Preferred Coffee: $
+            = avg.toFixed(2)
+          p.col-md-12 Recommended Products within &plusmn;$3
+          p.col-md-12 Similarity to Other Preferred Roasts: 
+            = roasts.join(', ')
+      .row
+        .col-md-8
+          .panel.panel-default
+            .panel-body
+              table.table.table-striped.table-hover
+                thead
+                  th Product Name
+                  th Roast Type
+                  th Price
+                tbody
+                  each row in recommended
+                    tr 
+                      td= row.name
+                        | &nbsp;&nbsp;
+                        a(href='/products/' + row.id)
+                          span.fa.fa-external-link(style='color: #000')
+                      td= row.roastType
+                      td
+                        | $
+                        = row.price.toFixed(2)

@@ -1,8 +1,9 @@
 extends ../layout
 block localJS
-  script(src='/js/delete-id.js')
-  script(src='/js/add.js')
-  script(src='/js/update.js')
+  script(src='/js/plantations/delete-id.js')
+  script(src='/js/plantations/add.js')
+  script(src='/js/plantations/update.js')
+  script(src='/js/plantations/search.js')
 block content
   .modal.fade#deleteModal(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel')
     .modal-dialog(role='document')
@@ -89,6 +90,17 @@ block content
   h1 Coffee Plantations
     a#addLink(data-toggle='modal' data-target='#addModal' href='#add' style="color: grey; font-size: 1.3em;")
       span.glyphicon.glyphicon-plus
+        
+  //- Search
+  .col-md-6.col-md-offset-6
+    .form-group
+      label.control-label(for='search')
+      .input-group
+        input.form-control#searchName(type='text')
+        span.input-group-btn
+          button.btn.btn-default#search(type='submit') Search
+      .help-block#searchNotFound(style='color: #e51c23;')
+          
   table.table.table-striped.table-hover
     thead
       th Plantation ID
@@ -101,11 +113,14 @@ block content
       each row in data
         tr 
           td= row.plantationID
-          td= row.name
+            | &nbsp;&nbsp;
+            a(href='/plantations/' + row.plantationID)
+              span.fa.fa-external-link(style='color: #000')
+          td= row.nameCP
           td= row.addressCP
           td= row.contactCP
           td= row.ceoName
           td
             button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' data-id='#{row.plantationID}') &times;
-            a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.plantationID}' data-name='#{row.name}' data-address='#{row.addressCP}' data-phone='#{row.contactCP}' data-companyID='#{row.companyID}')
+            a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.plantationID}' data-name='#{row.nameCP}' data-address='#{row.addressCP}' data-phone='#{row.contactCP}' data-companyID='#{row.companyID}')
               span.fa.fa-pencil(style='color: #000')

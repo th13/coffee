@@ -1,9 +1,27 @@
 extends ../layout
 block content
   .page-header
-    h3= data.name
+    h3
+      a(href='/plantations')
+        span.fa.fa-chevron-left(style='color: grey;')
+      | &nbsp;&nbsp;
+      = data.nameCP
   .panel.panel-default
     .panel-body
-      p 
-        strong Address: 
-        = data.addressCP
+      .row
+        p.col-md-4 
+          strong Address: 
+          = data.addressCP
+        p.col-md-4
+          strong Phone #: 
+          = data.contactCP
+      .row
+        p.col-md-4
+          strong Owned By: 
+          = data.ceoName
+        p.col-md-4
+          strong Contact #: 
+          = data.contactCO
+        p.col-md-4
+          strong Company Address: 
+          = data.addressCO

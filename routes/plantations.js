@@ -35,7 +35,7 @@ router.post('/new', function(req, res, next) {
       [
         req.body.plantionID,
         req.body.contactCP,
-        req.body.name,
+        req.body.nameCP,
         req.body.addressCP,
         req.body.companyID
       ],
@@ -55,9 +55,35 @@ router.post('/new', function(req, res, next) {
   });
 });
 
+router.post('/search', jsonParser, function(req, res, next) {
+  db.serialize(function() {
+    db.get('SELECT * FROM CoffeePlantation WHERE nameCP = ?', req.body.name, function(err, row) {
+      if (err) {
+        res.err = new Error('There was a SQLite error: ' + err);
+      }
+      else {
+        res.data = row;
+      }
+      next();
+    });
+  });
+}, function(req, res, next) {
+  if (res.err) {
+    res.send({
+      error: res.err
+    });
+  }
+  else {
+    res.send({
+      success: true,
+      id: res.data.plantationID
+    });
+  }
+});
+
 router.get('/:id', function(req, res, next) {
   db.serialize(function() {
-    db.get('SELECT * FROM CoffeePlantation INNER JOIN Company ON CoffeePlantation.companyID = Company.companyID', function(err, row) {
+    db.get('SELECT * FROM CoffeePlantation INNER JOIN Company ON CoffeePlantation.companyID = Company.companyID WHERE CoffeePlantation.plantationID = ?', req.params.id, function(err, row) {
       if (err) {
         res.err = err;
       }
@@ -74,19 +100,21 @@ router.get('/:id', function(req, res, next) {
   else {
     res.render('plantations/view', {
       title: res.data.name,
-      data: res.data });
+      data: res.data,
+      produces: res.produces
+    });
   }
 });
 
 router.post('/:id/update', jsonParser, function(req, res, next) {
   db.serialize(function() {
     db.run('UPDATE CoffeePlantation ' +
-           'SET plantationID = ?, contactCP = ?, name = ?, addressCP = ?, companyID = ? ' +
+           'SET plantationID = ?, contactCP = ?, nameCP = ?, addressCP = ?, companyID = ? ' +
            'WHERE plantationID = ?',
        [
          req.body.plantationID,
          req.body.contactCP,
-         req.body.name,
+         req.body.nameCP,
          req.body.addressCP,
          req.body.companyID,
          req.params.id

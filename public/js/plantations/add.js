@@ -6,7 +6,7 @@ $(function () {
 				data: JSON.stringify({
           plantationID: $('#plantationID').val(),
           contactCP: $('#contactCP').val(),
-          name: $('#name').val(),
+          nameCP: $('#name').val(),
           addressCP: $('#addressCP').val(),
           companyID: $('#companyID').val()
         }),

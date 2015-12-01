@@ -1,0 +1,25 @@
+extends ../layout
+block content
+  .page-header
+    h3
+      a(href='/products')
+        span.fa.fa-chevron-left(style='color: grey;')
+      | &nbsp;&nbsp;
+      = data[0].name
+  .panel.panel-default
+    .panel-body
+      .row
+        p.col-md-4 
+          strong Roast Type: 
+          = data[0].roastType
+        p.col-md-4
+          strong Price: 
+          | $
+          = data[0].price
+      .row
+        p.col-md-12
+          strong Produced By: 
+          br
+          each row in data
+            a(href='/plantations/#{row.plantationID}')= row.nameCP
+            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -28,6 +28,61 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/:id', function(req, res, next) {
+  db.serialize(function() {
+    db.all('SELECT * FROM Produces ' +
+           'INNER JOIN CoffeePlantation ON CoffeePlantation.plantationID = Produces.plantationID ' +
+           'INNER JOIN CoffeeProduct ON CoffeeProduct.id = Produces.productID ' +
+           'WHERE CoffeeProduct.id = ?',
+      req.params.id,
+      function(err, rows) {
+        if (err) {
+          res.err = err;
+        }
+        else {
+          console.log(rows);
+          res.data = rows;
+        }
+        next();
+      });
+  });
+}, function(req, res, next) {
+  if (res.err) {
+    res.render('error', { error: res.err });
+  }
+  else {
+    res.render('products/view', {
+      title: res.data.name,
+      data: res.data });
+  }
+});
+
+router.post('/search', jsonParser, function(req, res, next) {
+  db.serialize(function() {
+    db.get('SELECT * FROM CoffeeProduct WHERE name = ?', req.body.name, function(err, row) {
+      if (err) {
+        res.err = new Error('There was a SQLite error: ' + err);
+      }
+      else {
+        res.data = row;
+      }
+      next();
+    });
+  });
+}, function(req, res, next) {
+  if (res.err) {
+    res.send({
+      error: res.err
+    });
+  }
+  else {
+    res.send({
+      success: true,
+      id: res.data.id
+    });
+  }
+});
+
 router.post('/new', function(req, res, next) {
   db.serialize(function() {
     db.run('INSERT INTO CoffeeProduct(name, roastType, price) VALUES (?, ?, ?)',

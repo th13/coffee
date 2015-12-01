@@ -25,6 +25,8 @@ block content
       each row in data
         tr 
           td= row.username
+            | &nbsp;&nbsp;
+            a(href='/clients/' + row.username)
+              span.fa.fa-external-link(style='color: #000')
           td
             button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' id='#{row.username}') &times;
-

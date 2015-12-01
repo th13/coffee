@@ -1,8 +1,9 @@
 extends ../layout
 block localJS
-  script(src='js/products/delete-id.js')
-  script(src='js/products/add.js')
-  script(src='js/products/update.js')
+  script(src='/js/products/delete-id.js')
+  script(src='/js/products/add.js')
+  script(src='/js/products/update.js')
+  script(src='/js/products/search.js')
 block content
   .modal.fade#deleteModal(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel')
     .modal-dialog(role='document')
@@ -73,6 +74,17 @@ block content
   h1 Coffee Products
     a#addLink(data-toggle='modal' data-target='#addModal' href='#add' style="color: grey; font-size: 1.3em;")
       span.glyphicon.glyphicon-plus
+    
+  //- Search
+  .col-md-6.col-md-offset-6
+    .form-group
+      label.control-label(for='search')
+      .input-group
+        input.form-control#searchName(type='text')
+        span.input-group-btn
+          button.btn.btn-default#search(type='submit') Search
+      .help-block#searchNotFound(style='color: #e51c23;')
+      
   table.table.table-striped.table-hover
     thead
       th Product ID
@@ -83,11 +95,14 @@ block content
     tbody
       each row in data
         tr 
-          td= row.id
+        td= row.id
+          | &nbsp;&nbsp;
+          a(href='/products/' + row.id)
+            span.fa.fa-external-link(style='color: #000')
           td= row.name
           td= row.roastType
           td $
-            = row.price
+            = row.price.toFixed(2)
           td
             button.close.delete(type='button' data-toggle='modal' aria-hidden='true' data-target='#deleteModal' data-id='#{row.id}') &times;
             a.update(data-toggle='modal' data-target='#updateModal' href='#update' data-id='#{row.id}' data-name='#{row.name}' data-roastType='#{row.roastType}' data-price='#{row.price}')
